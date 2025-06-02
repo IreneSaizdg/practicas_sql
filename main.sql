@@ -113,3 +113,69 @@ GROUP BY country; /*Separa el count por los paises indicados*/
 
 
 /*SEGUNDA PARTE*/
+
+/*EJERCICIO 1: -------------------------------------------------------------
+    Facturas de Clientes de Brasil, Nombre del cliente, Id de factura, fecha de la factura y el país de la factura*/
+SELECT customers.firstname, invoices.CustomerId, invoices.InvoiceDate, invoices.BillingCountry
+FROM invoices /*Indica la tabla de origen*/
+JOIN customers ON invoices.CustomerId = customers.CustomerId /*Indica la tabla con la que se fusionará -> cada cliente con sus facturas. */
+WHERE invoices.BillingCountry = 'Brazil'
+
+
+/*EJERCICIO 2: -------------------------------------------------------------
+    Obtén cada factura asociada a cada agente de ventas con su nombre completo*/
+SELECT 
+  invoices.InvoiceId,
+  employees.FirstName AS EmployeesFirstName, 
+  employees.LastName AS EmployeesLastName
+FROM invoices
+JOIN customers ON invoices.CustomerId = customers.CustomerId /* Une la tabla de clientes con la de facturas, emparejando el ID del cliente en las dos tablas */
+JOIN employees ON customers.SupportRepId = employees.EmployeeId
+
+
+/*EJERCICIO 3: -------------------------------------------------------------
+    Obtén el nombre del cliente, el país, el nombre del agente y el total*/
+SELECT 
+  invoices.InvoiceId,
+  invoices.Total,
+  employees.FirstName || ' ' || employees.LastName AS EmployeeName,
+  customers.FirstName || ' ' || customers.LastName AS CustomerName,
+  customers.Country
+FROM invoices
+JOIN customers ON invoices.CustomerId = customers.CustomerId 
+JOIN employees ON customers.SupportRepId = employees.EmployeeId
+
+
+/*EJERCICIO 4: -------------------------------------------------------------
+    Obtén cada artículo de la factura con el nombre de la canción*/
+
+
+
+/*EJERCICIO 5: -------------------------------------------------------------
+    Muestra todas las canciones con su nombre, formato, álbum y género*/
+SELECT 
+ 	tracks.Name AS TrackName,
+ 	media_types.Name AS MediaType,
+ 	albums.Title AS AlbumTitle,
+ 	genres.Name AS GenreName
+FROM tracks
+JOIn media_types ON tracks.MediaTypeId = media_types.MediaTypeId
+JOIN albums ON tracks.AlbumId = albums.AlbumId
+JOIN genres ON tracks.GenreId = genres.GenreId;    
+
+
+
+/*EJERCICIO 6: -------------------------------------------------------------
+    Cuántas canciones hay en cada playlist*/
+
+
+/*EJERCICIO 7: -------------------------------------------------------------
+    Cuánto ha vendido cada empleado*/
+
+
+/*EJERCICIO 8: -------------------------------------------------------------
+    ¿Quién ha sido el agente de ventas que más ha vendido en 2009?*/
+
+
+/*EJERCICIO 9: -------------------------------------------------------------
+    ¿Cuáles son los 3 grupos que más han vendido?*/
